@@ -1,0 +1,1 @@
+[{"model": "roster.userinput", "pk": 1, "fields": {"university": "na", "school": "na", "name": "钱学超", "st_year_mon": "0000", "end_year_mon": "0000", "note": "hahaha"}}, {"model": "roster.userinput", "pk": 2, "fields": {"university": "na", "school": "na", "name": "孙雪萍", "st_year_mon": "1990", "end_year_mon": "2001", "note": "hahahaha"}}]

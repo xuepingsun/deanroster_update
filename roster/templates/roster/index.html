@@ -1,0 +1,26 @@
+{% if news_list %}
+  <ul>
+  {% for elem in news_list %}
+    <li>
+      <h3>{{ elem.title }}</h3>
+      <p>{{ elem.content }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>暂无新闻</p>
+{% endif %}
+
+{% if userinput_list %}
+  <ul>
+  {% for elem in userinput_list %}
+    <li>
+      <h3>{{ elem.name }}</h3>
+      <p>{{ elem.st_year_mon }}</p>
+      <p>{{ elem.end_year_mon }}</p>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>暂无数据</p>
+{% endif %}
