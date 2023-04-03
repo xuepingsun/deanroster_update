@@ -40,5 +40,5 @@ class UserInput(models.Model):
         app_label = 'roster'
 
     def __str__(self):
-        return '-'.join(self.university,self.school,self.name)+":["+self.st_year_mon+','+self.end_year_mon+']'
+        return '-'.join([self.university,self.school,self.name])+":["+self.st_year_mon+','+self.end_year_mon+']'
 #'university','school','name', 'st_year_mon','end_year_mon', 'note'
