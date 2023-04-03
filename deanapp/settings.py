@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import django_mysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "roster",
+    "django_mysql",
 ]
 
 MIDDLEWARE = [
@@ -74,23 +76,23 @@ WSGI_APPLICATION = "deanapp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2',
-#         'NAME': 'deanroster',
-#         'USER': 'admin',
-#         'PASSWORD': 'gsbe244-2023',
-#         'HOST': 'deanroster.cxjkck8xnuo5.us-east-2.rds.amazonaws.com',
-#         'PORT': '3306',
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2',
+        'NAME': 'deanroster',
+        'USER': 'admin',
+        'PASSWORD': 'gsbe244-2023',
+        'HOST': 'deanroster.cxjkck8xnuo5.us-east-2.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
