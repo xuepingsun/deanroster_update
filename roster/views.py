@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import DeanInfo #Post,UserInput
-from .forms import DeanInfoForm
+from .models import DeanBasic #Post,UserInput
+# from .forms import DeanInfoForm
 
 def index(request):
     return HttpResponse('Hello!')
