@@ -132,6 +132,8 @@ class DeanBasic(models.Model):
 
     class Meta:
         app_label = 'roster'
+        #constrain duplicates
+        unique_together = (("university", "school","name_last","name_first"),)
 
     def __str__(self):
         return '-'.join([self.university,self.school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
