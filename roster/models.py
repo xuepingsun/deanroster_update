@@ -13,6 +13,18 @@ from typing import Any
 from .reference_list import university_pilot_list
 
 
+class XiInstitute(models.Model):
+    university_choice=university_pilot_list
+    university = models.CharField(max_length=50,choices=university_choice,default='na')
+    institute_name=models.CharField(max_length=30)
+    found_year_mon=models.CharField(max_length=30)
+    institute_type=models.CharField(max_length=4,choices=[("center","中心"),("college","学院")])
+    class Meta:
+        app_label = 'roster'
+
+    def __str__(self):
+        return '-'.join([self.university,self.institute_name])
+
 
 class DeanBasic(models.Model):
     """
