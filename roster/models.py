@@ -137,12 +137,12 @@ class DeanInfo(models.Model):
         )
         ],
             default='0000')#allow for missing value
-    year_phd_graduation_info_url=models.CharField(max_length=20) #allow for missing value
+    year_phd_graduation_info_url=models.URLField() #allow for missing value
 
 
     #---------------------scopus info ----------------
-    scopus_auid=models.CharField(max_length=20) # allow to have multiple or missing at all
-    scopus_auprofile_url=models.CharField(max_length=20)
+    scopus_auid=models.CharField() # allow to have multiple or missing at all
+    scopus_auprofile_url=models.URLField()
     scopus_h_index_till_2022=models.CharField(max_length=20)
 
 
@@ -155,6 +155,8 @@ class DeanInfo(models.Model):
 
     #---------------------CV ----------------
     """do not allow for missing"""
+    edu_background_string = models.TextField()
+    edu_background_url= models.URLField()
     CV_string = models.TextField()
     CV_string_url= models.URLField()
 
