@@ -148,6 +148,15 @@ class DeanID(models.Model):
                                                         # ("OCRID","OCRID")
                                                         ])
     auid=models.CharField(max_length=20) # allow to have multiple or missing at all
+    auid_firstyear_in_database= models.CharField(max_length=4,
+        validators=[
+            MinLengthValidator(4),
+            RegexValidator(
+                regex=r'^[0-9]{4}$',
+                message='Only xxxx is allowed.'
+            )
+        ],
+        default='0000')
     author_profile_url=models.URLField()
     h_index_till_2022=models.IntegerField(max_length=20,default=-99)
 
