@@ -214,7 +214,7 @@ class Deanedu(models.Model):
         ],
         default='0000') #models.CharField(max_length=50)
     edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")])
-    edu_location= models.CharField(max_length=20)
+    # edu_location= models.CharField(max_length=20)
     edu_country= models.CharField(max_length=10)
     edu_institution=models.CharField(max_length=20)
 
