@@ -182,7 +182,7 @@ class DeanCV(models.Model):
     # job_content= models.TextField()
 
     job_title= models.CharField(max_length=20)
-    job_location= models.CharField(max_length=20)
+    # job_location= models.CharField(max_length=20)
     job_country= models.CharField(max_length=10)
     job_institution=models.CharField(max_length=20)
 
