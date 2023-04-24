@@ -182,7 +182,11 @@ class DeanCV(models.Model):
     # job_content= models.TextField()
 
     job_title= models.CharField(max_length=20)
-    # job_location= models.CharField(max_length=20)
+    job_title_level= models.CharField(max_length=20,
+            choices=[("dean","院长"),("vice-dean","副院长"),
+                    ("prof","教授"),("associate-prof","副教授")
+                    ,("assistant-prof","助理教授/讲师"),
+                    ,("postdoc","博士后")])
     job_country= models.CharField(max_length=10)
     job_institution=models.CharField(max_length=20)
 
