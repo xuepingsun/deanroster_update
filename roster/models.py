@@ -144,8 +144,9 @@ class DeanID(models.Model):
     #---------------------scopus info ----------------
     database=models.CharField(max_length=10,choices=[("scopus","scopus"),
                                                         #("CNKI","CNKI"),
-                                                        #("wanfang","wanfang"),
-                                                        ("OCRID","OCRID")])
+                                                        ("wanfang","wanfang"),
+                                                        # ("OCRID","OCRID")
+                                                        ])
     auid=models.CharField(max_length=20) # allow to have multiple or missing at all
     author_profile_url=models.URLField()
     h_index_till_2022=models.IntegerField(max_length=20,default=-99)
