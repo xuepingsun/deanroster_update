@@ -34,7 +34,7 @@ class SchoolInfo(models.Model):
     """
     university_choice=university_pilot_list
     university = models.CharField(max_length=50,choices=university_choice,default='na')
-    university_en= models.CharField(max_length=50,default='na')
+    # university_en= models.CharField(max_length=50,default='na')
 
     #university category: 985, 211, 985&211,
     university_cls_choice=[('985','985'),
