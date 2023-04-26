@@ -86,7 +86,7 @@ class DeanBasic(models.Model):
     # university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na')
     #
     #
-    # school = models.CharField(max_length=50,default='na')
+    school = models.CharField(max_length=50,default='na')
     # school_en= models.CharField(max_length=50,default='na')
     #
     # school_cls_choice=[
