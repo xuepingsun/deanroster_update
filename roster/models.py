@@ -258,7 +258,7 @@ class DeanCV(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],
+        ],help_text="该职位的开始年份(xxxx)或者年月(xxxx-xx)",
         default='0000') #models.CharField(max_length=50)
     job_end_year_mon =  models.CharField(max_length=7,
         validators=[
@@ -267,11 +267,11 @@ class DeanCV(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],
+        ],help_text="该职位的结束年份(xxxx)或者年月(xxxx-xx)",
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=50)
+    job_title= models.CharField(max_length=50,help_text="该职位的具体名称")
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
@@ -279,12 +279,12 @@ class DeanCV(models.Model):
                     ,("postdoc","博士后")
                     ,("other","其它")],
                     default='other')
-    job_country= models.CharField(max_length=10)
-    job_institution=models.CharField(max_length=20)
+    job_country= models.CharField(max_length=10,help_text="该职位所在地区与国家",)
+    job_institution=models.CharField(max_length=20,help_text="任职单位(具体到大学-学院或者研究所-实验室)")
     job_location_category=models.CharField(max_length=10,
             choices=[("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
-                    default='other')
+                    default='other',help_text="任职单位类型(不能确定的情况下选择other)")
 
 
     class Meta:
@@ -315,8 +315,12 @@ class Deanedu(models.Model):
         default='0000') #models.CharField(max_length=50)
     edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")])
     # edu_location= models.CharField(max_length=20)
-    edu_country= models.CharField(max_length=10)
-    edu_institution=models.CharField(max_length=20)
+    edu_country= models.CharField(max_length=10,help_text="学位授予国家或地区")
+    edu_location_category=models.CharField(max_length=10,
+            choices=[("within","本院"),("china","国内其他院所"),
+                    ("oversea","海外")],
+                    default='other',help_text="学位授予单位类型(不能确定的情况下选择other)")
+    edu_institution=models.CharField(max_length=20,help_text="学位授予机构(具体到大学-学院或者研究所)")
 
     class Meta:
         app_label = 'roster'
