@@ -2,11 +2,28 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import DeanBasic #Post,UserInput
+from .models import DeanBasic,SchoolInfo #Post,UserInput
 # from .forms import DeanInfoForm
 
-def index(request):
-    return HttpResponse('Hello!')
+# def index(request):
+#     return HttpResponse('Hello!')
+
+from django.contrib.admin.views.decorators import staff_member_required
+# from django.shortcuts import render
+
+@staff_member_required
+def admin_index(request, extra_context=None):
+    schools = SchoolInfo.objects.all()
+    total_deans = DeanBasic.objects.count()
+    context = {
+        'title': 'School Info Dashboard',
+        'schools': schools,
+        'total_deans': total_deans,
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, 'admin/admin_index.html', context)
+
 
 #from django.shortcuts import render
 
