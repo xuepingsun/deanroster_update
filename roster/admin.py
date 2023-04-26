@@ -2,6 +2,8 @@ from django.contrib import admin
 from nested_inline.admin import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 from django.db import models
 from django.forms import TextInput, Textarea
+from django.contrib.contenttypes.models import ContentType
+
 
 
 # Register your models here.
