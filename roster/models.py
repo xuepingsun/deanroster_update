@@ -214,7 +214,8 @@ class DeanBasic(models.Model):
 
 
     def __str__(self):
-        return '-'.join([self.university_school.university_school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
+        return '-'.join([self.university_school.university,self.university_school.school,
+            self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
 
 class DeanID(models.Model):
     dean_info = models.ForeignKey(DeanBasic, on_delete=models.DO_NOTHING)
