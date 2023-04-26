@@ -99,7 +99,7 @@ class DeanBasic(models.Model):
     #
     # school = models.CharField(max_length=50,default='na')
 
-    university_school= models.CharField(max_length=50,default='na')
+    university_school= models.ForeignKey(SchoolInfo,, on_delete=models.DO_NOTHING)#models.CharField(max_length=50,default='na')
     # school_en= models.CharField(max_length=50,default='na')
     #
     # school_cls_choice=[
