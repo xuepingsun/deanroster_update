@@ -20,7 +20,11 @@ class DeanCVInline(NestedTabularInline):
 class DeaneduInline(NestedTabularInline):
     model = Deanedu
 
-class DeanBasicAdmin(NestedModelAdmin):
+class DeanBasicAdmin(admin.ModelAdmin,NestedModelAdmin):
+    def formfield_for_foreignkey(self,db_field,request,**kwargs):
+        if db_field.name=="university_school":
+            kwargs['queryset']=SchoolInfo.objects.all()
+        return super().formfield_for_foreignkey(db_field,request,**kwargs)
     # fieldsets = (
     #     (("Basic Info"), {'fields': ("user", "website")}),
     #     (("Phones"), {'fields': (
