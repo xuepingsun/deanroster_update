@@ -34,6 +34,7 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
     #         )}),
     #     )
 
+
     inlines = [DeanIDInline,DeanCVInline,DeaneduInline]
     form=DeanBasicForm
     # change_form_template='admin/deanbasic_university_school_form.html'
@@ -49,8 +50,22 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
 
 class DepartmentInfoInline(NestedTabularInline):
     model = DepartmentInfo
+
+
+class DeanBasicInLine(admin.TabularInline):
+    model = Product
+    extra = 0
+
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
-    inlines = [DepartmentInfoInline]
+    inlines = [DepartmentInfoInline,DeanBasicInLine]
+
+    list_display = ['university_school', 'num_deans']
+
+    def num_deans(self, obj):
+        return obj.product_set.count()
+
+    num_deans.short_description = 'Number of Deans'
+
 
 
 admin.site.register(SchoolInfo,SchoolInfoAdmin)
