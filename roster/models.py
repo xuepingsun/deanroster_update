@@ -61,7 +61,12 @@ class SchoolInfo(models.Model):
     class Meta:
         app_label = 'roster'
         #constrain duplicates
-        unique_together = (("university", "school"),)
+        # unique_together = (("university", "school"),)
+        constraints=[
+            models.UniqueConstraint(fields=['university','school'],
+                                    name='university_school')
+        ]
+
 
     def __str__(self):
         return '-'.join([self.university,self.school])
@@ -76,8 +81,8 @@ class DeanBasic(models.Model):
     """
     #---------------------Institution info ----------------
     """ do not allow for missing in any of these fields"""
-    university_choice=university_pilot_list
-    university = models.CharField(max_length=50,choices=university_choice,default='na')
+    # university_choice=university_pilot_list
+    # university = models.CharField(max_length=50,choices=university_choice,default='na')
 
     # """
     # reminder here: english name from the official website, not chinese translation
@@ -92,7 +97,9 @@ class DeanBasic(models.Model):
     # university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na')
     #
     #
-    school = models.CharField(max_length=50,default='na')
+    # school = models.CharField(max_length=50,default='na')
+
+    university_school= models.CharField(max_length=50,default='na')
     # school_en= models.CharField(max_length=50,default='na')
     #
     # school_cls_choice=[
@@ -176,10 +183,10 @@ class DeanBasic(models.Model):
     class Meta:
         app_label = 'roster'
         #constrain duplicates
-        unique_together = (("university", "school","name_last","name_first"),)
+        unique_together = (("university_school","name_last","name_first"),)
 
     def __str__(self):
-        return '-'.join([self.university,self.school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
+        return '-'.join([self.university_school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
 
 class DeanID(models.Model):
     dean_info = models.ForeignKey(DeanBasic, on_delete=models.DO_NOTHING)
