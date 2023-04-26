@@ -14,7 +14,7 @@ from .forms import DeanBasicForm
 # admin.site.register(Post)
 # admin.site.register(UserInput)
 class DeanIDInline(NestedTabularInline):
-    extra]=2
+    extra=2
     model = DeanID
     help_texts = {
     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
