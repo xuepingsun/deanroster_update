@@ -57,22 +57,22 @@ class DeanBasicInLine(admin.TabularInline):
     extra = 0
 
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
-    inlines = [DepartmentInfoInline,DeanBasicInLine]
+    inlines = [DepartmentInfoInline] #,DeanBasicInLine
 
-    list_display = ['university','school', 'num_deans']#'university_school',
-
-    def num_deans(self, obj):
-        return obj.deanbasic_set.count()
-    num_deans.short_description = 'Number of Deans'
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        queryset = queryset.annotate(num_deans=models.Count('deanbasic'))
-        return queryset
-    def num_deans_display(self, obj):
-        return obj.num_deans
-    num_deans_display.short_description = 'Number of deans'
-
+    # list_display = ['university','school', 'num_deans']#'university_school',
+    #
+    # def num_deans(self, obj):
+    #     return obj.deanbasic_set.count()
+    # num_deans.short_description = 'Number of Deans'
+    #
+    # def get_queryset(self, request):
+    #     queryset = super().get_queryset(request)
+    #     queryset = queryset.annotate(num_deans=models.Count('deanbasic'))
+    #     return queryset
+    # def num_deans_display(self, obj):
+    #     return obj.num_deans
+    # num_deans_display.short_description = 'Number of deans'
+    #
 
 
 
@@ -81,3 +81,24 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
 admin.site.register(SchoolInfo,SchoolInfoAdmin)
 admin.site.register(DeanBasic,DeanBasicAdmin)
 admin.site.register(XiInstitute)
+
+admin.site.index_template = 'admin_index.html'
+def get_schools_with_dean_counts():
+    schools = SchoolInfo.objects.annotate(num_deans=models.Count('deanbasic'))
+    return schools
+
+def get_model_info(model):
+    content_type = ContentType.objects.get_for_model(model)
+    app_label = content_type.app_label
+    model_name = content_type.model
+    return app_label, model_name
+
+@admin.display(description='Number of Deans')
+def num_deans(self, obj):
+    return obj.num_deans
+
+admin.site.site_header = f"{get_model_info(SchoolInfo)[1].title()} Administration"
+admin.site.site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
+admin.site.index_title = f"{get_model_info(SchoolInfo)[1].title()} Dashboard"
+admin.site.schools = get_schools_with_dean_counts()
+admin.site.categories = get_categories_with_product_counts()

@@ -1,0 +1,23 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+<div class="roster-{{ roster }} module">
+  <table>
+    <thead>
+      <tr>
+        <th>School</th>
+        <th>Number of Deans</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schoolinfo in schoolinfos %}
+      <tr>
+        <td>{{ schoolinfo.university }}</td>
+        <td>{{ schoolinfo.school }}</td>
+        <td>{{ schoolinfo.num_deans}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
