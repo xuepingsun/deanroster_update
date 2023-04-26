@@ -185,8 +185,9 @@ class DeanBasic(models.Model):
         #constrain duplicates
         # unique_together = (("university_school","name_last","name_first"),)
         constraints=[
-            models.UniqueConstraint(fields=["university_school","name_last","name_first","st_year_mon")],
-                                    name='university_school_name_st_year_mon')
+            models.UniqueConstraint(
+            fields=["university_school","name_last","name_first","st_year_mon"],
+            name='university_school_name_st_year_mon')
         ]
 
 
