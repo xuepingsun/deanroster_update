@@ -9,7 +9,7 @@ from .models import DeanBasic, SchoolInfo#UserInput,
 class DeanBasicForm(forms.ModelForm):
     category=forms.ModelChoiceField(
         queryset=SchoolInfo.objects.all(),
-        widget=forms.Select
+        widget=forms.Select()
     )
     class Meta:
         model = DeanBasic
