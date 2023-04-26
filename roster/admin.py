@@ -59,7 +59,7 @@ class DeanBasicInLine(admin.TabularInline):
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     inlines = [DepartmentInfoInline,DeanBasicInLine]
 
-    list_display = ['university_school', 'num_deans']
+    list_display = [ 'num_deans']#'university_school',
 
     def num_deans(self, obj):
         return obj.product_set.count()
