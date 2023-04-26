@@ -94,6 +94,11 @@ from django.template.response import TemplateResponse
 #         return obj.deanbasic_set.count()
 #
 #     num_deans.short_description = 'Number of Deans'
+def get_model_info(model):
+    content_type = ContentType.objects.get_for_model(model)
+    app_label = content_type.app_label
+    model_name = content_type.model
+    return app_label, model_name
 
 
 class SchoolInfoDashboard(admin.AdminSite):
@@ -136,9 +141,9 @@ admin.site.register(XiInstitute)
 #     model_name = content_type.model
 #     return app_label, model_name
 #
-# @admin.display(description='Number of Deans')
-# def num_deans(self, obj):
-#     return obj.num_deans
+@admin.display(description='Number of Deans')
+def num_deans(self, obj):
+    return obj.num_deans
 #
 # admin.site.site_header = f"{get_model_info(SchoolInfo)[1].title()} Administration"
 # admin.site.site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
