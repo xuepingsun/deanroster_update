@@ -208,7 +208,7 @@ class DeanBasic(models.Model):
         # unique_together = (("university_school","name_last","name_first"),)
         constraints=[
             models.UniqueConstraint(
-            fields=["university_school","name_last","name_first"], #,"st_year_mon"
+            fields=["university_school_name","name_last","name_first"], #,"st_year_mon"
             name='university_school_name_st_year_mon')
         ]
 
