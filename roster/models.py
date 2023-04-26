@@ -208,7 +208,7 @@ class DeanBasic(models.Model):
         # unique_together = (("university_school","name_last","name_first"),)
         constraints=[
             models.UniqueConstraint(
-            fields=["university_school","name_last","name_first","st_year_mon"],
+            fields=["university_school","name_last","name_first"], #,"st_year_mon"
             name='university_school_name_st_year_mon')
         ]
 
@@ -268,15 +268,20 @@ class DeanCV(models.Model):
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=20)
+    job_title= models.CharField(max_length=50)
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
                     ,("assistant-prof","助理教授/讲师")
-                    ,("postdoc","博士后")],
+                    ,("postdoc","博士后")
+                    ,("other","其它")],
                     default='other')
     job_country= models.CharField(max_length=10)
     job_institution=models.CharField(max_length=20)
+    job_location_category=models.CharField(max_length=10
+            choices=[("within","本院"),("china","国内其他院所"),
+                    ("oversea","海外")],
+                    default='other')
 
 
     class Meta:
