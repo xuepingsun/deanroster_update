@@ -62,7 +62,7 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     list_display = [ 'num_deans']#'university_school',
 
     def num_deans(self, obj):
-        return obj.product_set.count()
+        return obj.deanbasic_set.count()
 
     num_deans.short_description = 'Number of Deans'
 
