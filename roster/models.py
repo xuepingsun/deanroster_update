@@ -26,16 +26,7 @@ class XiInstitute(models.Model):
         return '-'.join([self.university,self.institute_name])
 
 
-class DeanBasic(models.Model):
-    """
-    have chinese translation for all the variable names
-    perhaps also add a clickable info button to check the definition of the variable
-    """
-    #---------------------Institution info ----------------
-    """ do not allow for missing in any of these fields"""
-    university_choice=university_pilot_list
-    university = models.CharField(max_length=50,choices=university_choice,default='na')
-
+class SchoolInfo(models.Model):
     """
     reminder here: english name from the official website, not chinese translation
     """
@@ -63,6 +54,52 @@ class DeanBasic(models.Model):
                     ('gov','govmanagement')]
     school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na')
 
+    class Meta:
+        app_label = 'roster'
+
+    def __str__(self):
+        return '-'.join([self.university,self.school])
+
+
+
+
+class DeanBasic(models.Model):
+    """
+    have chinese translation for all the variable names
+    perhaps also add a clickable info button to check the definition of the variable
+    """
+    #---------------------Institution info ----------------
+    """ do not allow for missing in any of these fields"""
+    university_choice=university_pilot_list
+    university = models.CharField(max_length=50,choices=university_choice,default='na')
+
+    # """
+    # reminder here: english name from the official website, not chinese translation
+    # """
+    # university_en= models.CharField(max_length=50,default='na')
+    #
+    # #university category: 985, 211, 985&211,
+    # university_cls_choice=[('985','985'),
+    #                        ('211','211'),
+    #                        ('985&211','985&211'),
+    #                        ('none','none')]
+    # university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na')
+    #
+    #
+    # school = models.CharField(max_length=50,default='na')
+    # school_en= models.CharField(max_length=50,default='na')
+    #
+    # school_cls_choice=[
+    #                 ('econ','economics'),
+    #                 ('life','life_science'),
+    #                 ('chem','chemistry'),
+    #                 ('phys','physics'),
+    #                 ('macs','math&computer_science'),
+    #                 ('soci','sociology'),
+    #                 ('pol','poliscience'),
+    #                 ('gov','govmanagement')]
+    # school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na')
+    #
 
     #---------------------name and tenure period ----------------
     """ do not allow for missing in any of these fields"""
