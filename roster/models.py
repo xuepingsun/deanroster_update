@@ -278,7 +278,7 @@ class DeanCV(models.Model):
                     default='other')
     job_country= models.CharField(max_length=10)
     job_institution=models.CharField(max_length=20)
-    job_location_category=models.CharField(max_length=10
+    job_location_category=models.CharField(max_length=10,
             choices=[("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
                     default='other')
