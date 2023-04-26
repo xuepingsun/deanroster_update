@@ -59,12 +59,22 @@ class DeanBasicInLine(admin.TabularInline):
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     inlines = [DepartmentInfoInline,DeanBasicInLine]
 
-    list_display = [ 'num_deans']#'university_school',
+    list_display = ['university','school', 'num_deans']#'university_school',
 
     def num_deans(self, obj):
         return obj.deanbasic_set.count()
-
     num_deans.short_description = 'Number of Deans'
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(num_deans=models.Count('deanbasic'))
+        return queryset
+    def num_deans_display(self, obj):
+        return obj.num_deans
+    num_deans_display.short_description = 'Number of deans'
+
+
+
 
 
 
