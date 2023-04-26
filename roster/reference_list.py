@@ -1,4 +1,4 @@
-university_pilot_list=[
+university_pilot_list=[#value in database, label displayed
                        ('Xiamen University','厦门大学'),
                        ('Suzhou University','苏州大学'),
                        ('Zhongshan University','中山大学'),

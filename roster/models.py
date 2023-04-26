@@ -48,14 +48,16 @@ class SchoolInfo(models.Model):
     school_en= models.CharField(max_length=50,default='na')
 
     school_cls_choice=[
-                    ('econ','economics'),
-                    ('life','life_science'),
-                    ('chem','chemistry'),
-                    ('phys','physics'),
-                    ('macs','math&computer_science'),
-                    ('soci','sociology'),
-                    ('pol','poliscience'),
-                    ('gov','govmanagement')]
+                    ('life','生命科学'),
+                    ('chem','化学'),
+                    ('phys','物理'),
+                    ('macs','数学与计算科学'),
+                    ('econ','经济'),
+                    ('soci','社会学'),
+                    ('pol','政府管理与政治学'),
+                    # ('gov','govmanagement')
+                    ('law','法学')
+                    ]
     school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na')
 
     class Meta:
