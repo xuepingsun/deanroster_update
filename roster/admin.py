@@ -84,7 +84,7 @@ admin.site.register(SchoolInfo,SchoolInfoAdmin)
 admin.site.register(DeanBasic,DeanBasicAdmin)
 admin.site.register(XiInstitute)
 
-admin.site.index_template = 'admin_index.html'
+admin.site.index_template = 'roster/templates/admin/admin_index.html'
 def get_schools_with_dean_counts():
     schools = SchoolInfo.objects.annotate(num_deans=models.Count('deanbasic'))
     return schools
