@@ -20,6 +20,8 @@ class DeanIDInline(NestedTabularInline):
     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
     'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
 }
+    class Meta:
+        help_text='如果该院长在此数据库中的学者ID有一个以上，请逐个填写\n 该院长在此数据库中的第一篇发表时间(包含硕士以上论文)'
 
 class DeanCVInline(NestedTabularInline):
     model = DeanCV
