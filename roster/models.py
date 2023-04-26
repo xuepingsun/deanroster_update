@@ -121,7 +121,7 @@ class DeanBasic(models.Model):
     #
     # school = models.CharField(max_length=50,default='na')
 
-    university_school= models.ForeignKey(SchoolInfo,on_delete=models.DO_NOTHING)#models.CharField(max_length=50,default='na')
+    university_school_name= models.ForeignKey(SchoolInfo,on_delete=models.DO_NOTHING)#models.CharField(max_length=50,default='na')
     # school_en= models.CharField(max_length=50,default='na')
     #
     # school_cls_choice=[
@@ -214,7 +214,7 @@ class DeanBasic(models.Model):
 
 
     def __str__(self):
-        return '-'.join([self.university_school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
+        return '-'.join([self.university_school_name,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
 
 class DeanID(models.Model):
     dean_info = models.ForeignKey(DeanBasic, on_delete=models.DO_NOTHING)
