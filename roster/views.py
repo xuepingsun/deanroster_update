@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from .models import DeanBasic,SchoolInfo #Post,UserInput
 # from .forms import DeanInfoForm
 
-# def index(request):
-#     return HttpResponse('Hello!')
+def index(request):
+    return HttpResponse('Hello!')
 
 from django.contrib.admin.views.decorators import staff_member_required
 # from django.shortcuts import render
