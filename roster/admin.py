@@ -53,7 +53,7 @@ class DepartmentInfoInline(NestedTabularInline):
 
 
 class DeanBasicInLine(admin.TabularInline):
-    model = Product
+    model = DeanBasic
     extra = 0
 
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
