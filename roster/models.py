@@ -140,13 +140,13 @@ class DeanBasic(models.Model):
 
     #---------------------name and tenure period ----------------
     """ do not allow for missing in any of these fields"""
-    name_first = models.CharField(max_length=20, widget=Textarea(attrs={'cols': 3, 'rows': 1}), help_text="输入姓")
-    name_last = models.CharField(max_length=20)
+    name_first = models.CharField(max_length=20, help_text="输入名")
+    name_last = models.CharField(max_length=20,help_text="输入姓")
 
     gender_choice=[('female','女'),
                    ('male','男')]
     gender = models.CharField(max_length=6,choices=gender_choice)
-    is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")]) #true or false
+    is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],help_text="是否为常见名") #true or false
 
     st_year_mon = models.CharField(max_length=7,
         validators=[
@@ -155,7 +155,7 @@ class DeanBasic(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],
+        ],help_text="任职开始年月",
         default='0000') #models.CharField(max_length=50)
     end_year_mon =  models.CharField(max_length=7,
         validators=[
@@ -164,7 +164,7 @@ class DeanBasic(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],
+        ],help_text="任职结束年月",
         default='0000') #models.CharField(max_length=50)
 
     # #---------------------graduation---------------
@@ -199,9 +199,9 @@ class DeanBasic(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     # edu_background_string = models.TextField()
-    edu_background_url= models.URLField()
+    edu_background_url= models.URLField(help_text="关于教育背景信息的网页链接")
     # CV_string = models.TextField()
-    CV_string_url= models.URLField()
+    CV_string_url= models.URLField(help_text="关于履历信息的网页链接")
 
 
     class Meta:
@@ -228,7 +228,7 @@ class DeanID(models.Model):
                                                         ("wanfang","wanfang"),
                                                         # ("OCRID","OCRID")
                                                         ])
-    auid=models.CharField(max_length=20) # allow to have multiple or missing at all
+    auid=models.CharField(max_length=20,help_text="该院长在此数据库中的学者ID。如果有一个以上，请分行填写") # allow to have multiple or missing at all
     auid_firstyear_in_database= models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
@@ -237,9 +237,9 @@ class DeanID(models.Model):
                 message='Only xxxx is allowed.'
             )
         ],
-        default='0000')
-    author_profile_url=models.URLField()
-    h_index_till_2022=models.IntegerField(max_length=20,default=-99)
+        default='0000',help_text="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
+    author_profile_url=models.URLField(help_text="该院长在此数据库中的页面链接")
+    h_index_till_2022=models.IntegerField(max_length=20,default=-99,help_text="该院长在此数据库中的截止目前的h-index")
 
 
     class Meta:
