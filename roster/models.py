@@ -182,7 +182,6 @@ class DeanBasic(models.Model):
 
     class Meta:
         app_label = 'roster'
-        fields = "__all__" 
         #constrain duplicates
         # unique_together = (("university_school","name_last","name_first"),)
         constraints=[

@@ -33,6 +33,8 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
     #         (("Secondary"), {'fields': (("secondary_phone_country", "secondary_phone_area", "secondary_phone_number"),)}),
     #         )}),
     #     )
+
+    fields = "__all__" 
     inlines = [DeanIDInline,DeanCVInline,DeaneduInline]
     form=DeanBasicForm
     # change_form_template='admin/deanbasic_university_school_form.html'
