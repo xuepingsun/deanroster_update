@@ -46,6 +46,15 @@ class SchoolInfo(models.Model):
 
     school = models.CharField(max_length=50,default='na')
     school_en= models.CharField(max_length=50,default='na')
+    school_st_year=  models.CharField(max_length=4,
+        validators=[
+            MinLengthValidator(4),
+            RegexValidator(
+                regex=r'^[0-9]{4}$',
+                message='Only xxxx are allowed.'
+            )
+        ],
+        default='0000')
 
     school_cls_choice=[
                     ('life','生命科学'),
@@ -73,6 +82,17 @@ class SchoolInfo(models.Model):
     def __str__(self):
         return '-'.join([self.university,self.school])
 
+
+class DepartmentInfo(models.Model):
+    school_info = models.ForeignKey(SchoolInfo, on_delete=models.DO_NOTHING)
+
+    #---------------------scopus info ----------------
+    department_name=models.CharField(max_length=30)
+    department_name_en=models.CharField(max_length=30)
+
+
+    class Meta:
+        app_label = 'roster'
 
 
 

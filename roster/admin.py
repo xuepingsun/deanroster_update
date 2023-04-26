@@ -5,7 +5,7 @@ from django.forms import TextInput, Textarea
 
 
 # Register your models here.
-from .models import XiInstitute,SchoolInfo, DeanBasic, DeanID,DeanCV,Deanedu#,UserVisit #Post,UserInput,
+from .models import XiInstitute,SchoolInfo, DepartmentInfo,DeanBasic, DeanID,DeanCV,Deanedu#,UserVisit #Post,UserInput,
 from .forms import DeanBasicForm
 # from .models import DeanInfo
 
@@ -46,6 +46,13 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
 #     }
 
 
-admin.site.register(SchoolInfo)
+
+class DepartmentInfoInline(NestedTabularInline):
+    model = DepartmentInfo
+class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
+    inlines = [DepartmentInfoInline]
+
+
+admin.site.register(SchoolInfo,SchoolInfoAdmin)
 admin.site.register(DeanBasic,DeanBasicAdmin)
 admin.site.register(XiInstitute)
