@@ -1,4 +1,4 @@
-university_pilot_list=[#value in database, label displayed
+university_pilot_list_duo=[#value in database, label displayed
                        ('Xiamen University','厦门大学'),
                        ('Suzhou University','苏州大学'),
                        ('Zhongshan University','中山大学'),
@@ -15,3 +15,9 @@ university_pilot_list=[#value in database, label displayed
                        ('Shandong University','河南大学'),
                        ('University of Science and Technology of China','中国科技大学')
                        ]
+
+university_pilot_list=[]
+for (en,cn) in university_pilot_list_duo:
+    university_pilot_list.append((cn,cn))
+
+# university_pilot_list
