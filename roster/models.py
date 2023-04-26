@@ -183,7 +183,12 @@ class DeanBasic(models.Model):
     class Meta:
         app_label = 'roster'
         #constrain duplicates
-        unique_together = (("university_school","name_last","name_first"),)
+        # unique_together = (("university_school","name_last","name_first"),)
+        constraints=[
+            models.UniqueConstraint(fields=["university_school","name_last","name_first","st_year_mon")],
+                                    name='university_school_name_st_year_mon')
+        ]
+
 
     def __str__(self):
         return '-'.join([self.university_school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
