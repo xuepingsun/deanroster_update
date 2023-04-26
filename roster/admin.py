@@ -103,3 +103,20 @@ admin.site.site_header = f"{get_model_info(SchoolInfo)[1].title()} Administratio
 admin.site.site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
 admin.site.index_title = f"{get_model_info(SchoolInfo)[1].title()} Dashboard"
 admin.site.schools = get_schools_with_dean_counts()
+
+
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render
+
+@staff_member_required
+def admin_index(request, extra_context=None):
+    schools = SchoolInfo.objects.all()
+    total_deans = DeanBasic.objects.count()
+    context = {
+        'schools': schools,
+        'total_deans': total_deans,
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+    return render(request, 'admin/admin_index.html', context)
