@@ -152,7 +152,7 @@ class DeanBasic(models.Model):
                    ('male','男')]
     gender = models.CharField(max_length=6,choices=gender_choice,
             verbose_name="性别")
-    is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],help_text="是否为常见名") #true or false
+    is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],verbose_name="是否为常见名") #true or false
 
     # st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
     st_year_mon = models.CharField(max_length=7,
@@ -163,7 +163,7 @@ class DeanBasic(models.Model):
                 message='Only xxxx or xxxx-xx are allowed.'
             )
         ],
-        help_text="任职开始年月",
+        verbose_name="任职开始年月",
         default='0000') #models.CharField(max_length=50)
     end_year_mon =  models.CharField(max_length=7,
         validators=[
@@ -172,7 +172,7 @@ class DeanBasic(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],help_text="任职结束年月",
+        ],verbose_name="任职结束年月",
         default='0000') #models.CharField(max_length=50)
 
     # #---------------------graduation---------------
@@ -207,9 +207,9 @@ class DeanBasic(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     # edu_background_string = models.TextField()
-    edu_background_url= models.URLField(help_text="关于教育背景信息的网页链接")
+    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接")
     # CV_string = models.TextField()
-    CV_string_url= models.URLField(help_text="关于履历信息的网页链接")
+    CV_string_url= models.URLField(verbose_name="履历信息的网页链接")
 
 
     class Meta:
@@ -235,8 +235,9 @@ class DeanID(models.Model):
                                                         #("CNKI","CNKI"),
                                                         ("wanfang","wanfang"),
                                                         # ("OCRID","OCRID")
-                                                        ])
-    auid=models.CharField(max_length=20,help_text="该院长在此数据库中的学者ID。如果有一个以上，请分行填写") # allow to have multiple or missing at all
+                                                        ],verbose_name="学术发表数据库名称",
+                                                        help_text="自然科学范畴内不应该缺失scopus ID，社会科学范畴内不应该缺失 wanfang；大部分情况下应该二者兼有")
+    auid=models.CharField(max_length=20,verbose_name="学者ID",help_text="该院长在此数据库中的学者ID如果有一个以上，请分行填写") # allow to have multiple or missing at all
     auid_firstyear_in_database= models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
@@ -246,7 +247,7 @@ class DeanID(models.Model):
             )
         ],
         default='0000',help_text="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
-    author_profile_url=models.URLField(help_text="该院长在此数据库中的页面链接")
+    author_profile_url=models.URLField(help_text="该院长在此数据库中的学者页面链接")
     h_index_till_2022=models.IntegerField(max_length=20,default=-99,help_text="该院长在此数据库中的截止目前的h-index")
 
 
