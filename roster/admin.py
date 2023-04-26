@@ -103,4 +103,3 @@ admin.site.site_header = f"{get_model_info(SchoolInfo)[1].title()} Administratio
 admin.site.site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
 admin.site.index_title = f"{get_model_info(SchoolInfo)[1].title()} Dashboard"
 admin.site.schools = get_schools_with_dean_counts()
-admin.site.categories = get_categories_with_product_counts()
