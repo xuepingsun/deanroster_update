@@ -6,6 +6,7 @@ from django.forms import TextInput, Textarea
 
 # Register your models here.
 from .models import XiInstitute,SchoolInfo, DeanBasic, DeanID,DeanCV,Deanedu#,UserVisit #Post,UserInput,
+from .forms import DeanBasicForm
 # from .models import DeanInfo
 
 # admin.site.register(Post)
@@ -33,6 +34,7 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
     #         )}),
     #     )
     inlines = [DeanIDInline,DeanCVInline,DeaneduInline]
+    form=DeanBasicForm
 
 # @admin.site.register(DeanBasicAdmin)
 # class AllModelAdmin(admin.ModelAdmin):
