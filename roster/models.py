@@ -6,6 +6,8 @@ from django.http import HttpRequest
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _lazy
 
+from django.forms import Textarea
+
 import datetime
 import hashlib
 import uuid
@@ -138,7 +140,7 @@ class DeanBasic(models.Model):
 
     #---------------------name and tenure period ----------------
     """ do not allow for missing in any of these fields"""
-    name_first = models.CharField(max_length=20, help_text="输入姓")
+    name_first = models.CharField(max_length=20, widget=Textarea(attrs={'cols': 3, 'rows': 1}), help_text="输入姓")
     name_last = models.CharField(max_length=20)
 
     gender_choice=[('female','女'),
