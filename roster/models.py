@@ -140,25 +140,31 @@ class DeanBasic(models.Model):
 
     #---------------------name and tenure period ----------------
     """ do not allow for missing in any of these fields"""
-    name_first = models.CharField(max_length=20, help_text="输入名")
-    name_last = models.CharField(max_length=20,help_text="输入姓")
+    name_first = models.CharField(max_length=20, #help_text="输入名"
+            verbose_name="姓"
+                                )
+    name_last = models.CharField(max_length=20,
+            verbose_name="名"
+            # help_text="输入姓"
+            )
 
     gender_choice=[('female','女'),
                    ('male','男')]
-    gender = models.CharField(max_length=6,choices=gender_choice)
+    gender = models.CharField(max_length=6,choices=gender_choice,
+            verbose_name="性别")
     is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],help_text="是否为常见名") #true or false
 
-    st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
-    # st_year_mon = models.CharField(max_length=7,
-    #     validators=[
-    #         MinLengthValidator(4),
-    #         RegexValidator(
-    #             regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
-    #             message='Only xxxx or xxxx-xx are allowed.'
-    #         )
-    #     ],
-    #     help_text="任职开始年月",
-    #     default='0000') #models.CharField(max_length=50)
+    # st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
+    st_year_mon = models.CharField(max_length=7,
+        validators=[
+            MinLengthValidator(4),
+            RegexValidator(
+                regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
+                message='Only xxxx or xxxx-xx are allowed.'
+            )
+        ],
+        help_text="任职开始年月",
+        default='0000') #models.CharField(max_length=50)
     end_year_mon =  models.CharField(max_length=7,
         validators=[
             MinLengthValidator(4),
