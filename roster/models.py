@@ -21,6 +21,8 @@ class XiInstitute(models.Model):
     institute_type=models.CharField(max_length=8,choices=[("center","中心"),("college","学院")])
     class Meta:
         app_label = 'roster'
+        #constrain duplicates
+        unique_together = (("university", "institute_name"),)
 
     def __str__(self):
         return '-'.join([self.university,self.institute_name])
@@ -58,6 +60,8 @@ class SchoolInfo(models.Model):
 
     class Meta:
         app_label = 'roster'
+        #constrain duplicates
+        unique_together = (("university", "school"),)
 
     def __str__(self):
         return '-'.join([self.university,self.school])
