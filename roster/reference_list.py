@@ -13,7 +13,7 @@ university_pilot_list_duo=[#value in database, label displayed
                        ('Zhejiang University','浙江大学'),
                        ('Wuhan University','武汉大学'),
                        ('Shandong University','山东大学'),
-                       ('University of Science and Technology of China','中国科技大学')
+                       ('University of Science and Technology of China','中国科学技术大学')
                        ]
 
 university_pilot_list=[]
