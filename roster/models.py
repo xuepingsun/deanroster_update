@@ -25,6 +25,9 @@ class XiInstitute(models.Model):
         app_label = 'roster'
         #constrain duplicates
         unique_together = (("university", "institute_name"),)
+        
+        verbose_name = "校级马列学院与习近平思想研究院所"
+        verbose_name_plural = "校级马列学院与习近平思想研究院所"
 
     def __str__(self):
         return '-'.join([self.university,self.institute_name])
@@ -79,6 +82,9 @@ class SchoolInfo(models.Model):
             models.UniqueConstraint(fields=['university','school'],
                                     name='university_school')
         ]
+        
+        verbose_name = "院系名单"
+        verbose_name_plural = "院系名单"
 
 
     def __str__(self):
@@ -221,6 +227,10 @@ class DeanBasic(models.Model):
             fields=["university_school","name_last","name_first"], #,"st_year_mon"
             name='university_school_name_st_year_mon')
         ]
+        
+        
+        verbose_name = "院长信息"
+        verbose_name_plural = "院长信息"
 
 
     def __str__(self):
