@@ -290,7 +290,7 @@ class DeanCV(models.Model):
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=50,help_text="该职位的具体名称")
+    job_title= models.CharField(max_length=50,verbose_name="该职位的具体名称")
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
