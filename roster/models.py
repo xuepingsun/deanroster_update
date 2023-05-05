@@ -38,7 +38,7 @@ class SchoolInfo(models.Model):
     reminder here: english name from the official website, not chinese translation
     """
     university_choice=university_pilot_list
-    university = models.CharField(max_length=50,choices=university_choice,default='na')
+    university = models.CharField(max_length=50,choices=university_choice,default='na',verbose_name="大学名称")
     # university_en= models.CharField(max_length=50,default='na')
 
     #university category: 985, 211, 985&211,
@@ -46,11 +46,11 @@ class SchoolInfo(models.Model):
                            ('211','211'),
                            ('985&211','985&211'),
                            ('none','none')]
-    university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na')
+    university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na',verbose_name="大学985/211类别")
 
 
-    school = models.CharField(max_length=50,default='na')
-    school_en= models.CharField(max_length=50,default='na')
+    school = models.CharField(max_length=50,default='na',verbose_name="学院名称")
+    school_en= models.CharField(max_length=50,default='na',verbose_name="学院英文名")
     school_st_year=  models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
@@ -59,7 +59,7 @@ class SchoolInfo(models.Model):
                 message='Only xxxx are allowed.'
             )
         ],
-        default='0000')
+        default='0000',verbose_name="学院创始年份")
 
     school_cls_choice=[
                     ('life','生命科学'),
@@ -72,7 +72,7 @@ class SchoolInfo(models.Model):
                     # ('gov','govmanagement')
                     ('law','法学')
                     ]
-    school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na')
+    school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na',verbose_name="学科大类")
 
     class Meta:
         app_label = 'roster'
@@ -95,8 +95,8 @@ class DepartmentInfo(models.Model):
     school_info = models.ForeignKey(SchoolInfo, on_delete=models.DO_NOTHING)
 
     #---------------------scopus info ----------------
-    department_name=models.CharField(max_length=30)
-    department_name_en=models.CharField(max_length=30)
+    department_name=models.CharField(max_length=30,verbose_name="系/所名称")
+    department_name_en=models.CharField(max_length=30,verbose_name="系/所名称英文")
 
 
     class Meta:
