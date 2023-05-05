@@ -27,20 +27,7 @@ class DeanIDInline(NestedTabularInline):
     #     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
     #     'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
     #     }
-    list_display = [field.name for field in model._meta.fields]
 
-    def get_list_display(self, request):
-        # Call the parent implementation to get the original list of fields
-        list_display = super().get_list_display(request)
-
-        # Loop through the list of fields and add inline styles to each field
-        for i, field_name in enumerate(self.get_model_fields(self.model)):
-            list_display[i] = format_html('<div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">{}</div>', list_display[i])
-
-        return list_display
-
-    def get_model_fields(self, model):
-        return [field.name for field in model._meta.fields]
 
     
 class DeanCVInline(NestedTabularInline):
