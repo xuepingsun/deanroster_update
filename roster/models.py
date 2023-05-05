@@ -263,7 +263,8 @@ class DeanID(models.Model):
 
     class Meta:
         app_label = 'roster'
-
+        verbose_name = "出版数据库ID"
+        verbose_name_plural = "出版数据库ID"
 
 class DeanCV(models.Model):
 
@@ -308,6 +309,9 @@ class DeanCV(models.Model):
 
     class Meta:
         app_label = 'roster'
+        
+        verbose_name = "工作履历"
+        verbose_name_plural = "工作履历"
 
 class Deanedu(models.Model):
 
@@ -343,6 +347,8 @@ class Deanedu(models.Model):
 
     class Meta:
         app_label = 'roster'
+        verbose_name = "高等教育背景"
+        verbose_name_plural = "高等教育背景"
 
     # def __str__(self):
     #     return '-'.join([self.university,self.school,self.name_last,self.name_first])+":["+self.st_year_mon+','+self.end_year_mon+']'
