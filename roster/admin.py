@@ -70,11 +70,12 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
 
 class DepartmentInfoInline(NestedTabularInline):
     model = DepartmentInfo
+    extra=1
 
 
 class DeanBasicInLine(admin.TabularInline):
     model = DeanBasic
-    extra = 0
+    extra = 1
 
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     inlines = [DepartmentInfoInline] #,DeanBasicInLine
