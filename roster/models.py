@@ -17,10 +17,10 @@ from .reference_list import university_pilot_list
 
 class XiInstitute(models.Model):
     university_choice=university_pilot_list
-    university = models.CharField(max_length=50,choices=university_choice,default='na')
-    institute_name=models.CharField(max_length=30)
-    found_year_mon=models.CharField(max_length=30)
-    institute_type=models.CharField(max_length=8,choices=[("center","中心"),("college","学院")])
+    university = models.CharField(max_length=50,choices=university_choice,default='na',verbose_name="大学名称")
+    institute_name=models.CharField(max_length=30,verbose_name="机构名称")
+    found_year_mon=models.CharField(max_length=30,verbose_name="机构创始年月")
+    institute_type=models.CharField(max_length=8,choices=[("center","中心/研究所"),("college","学院")],verbose_name="机构级别")
     class Meta:
         app_label = 'roster'
         #constrain duplicates
@@ -256,9 +256,9 @@ class DeanID(models.Model):
                 message='Only xxxx is allowed.'
             )
         ],
-        default='0000',help_text="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
-    author_profile_url=models.URLField(help_text="该院长在此数据库中的学者页面链接")
-    h_index_till_2022=models.IntegerField(max_length=20,default=-99,help_text="该院长在此数据库中的截止目前的h-index")
+        default='0000',verbose_name="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
+    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接")
+    h_index_till_2022=models.IntegerField(max_length=20,default=-99,verbose_name="该院长在此数据库中的截止目前的h-index")
 
 
     class Meta:
@@ -277,7 +277,7 @@ class DeanCV(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],help_text="该职位的开始年份(xxxx)或者年月(xxxx-xx)",
+        ],verbose_name="该职位的开始年份(xxxx)或者年月(xxxx-xx)",
         default='0000') #models.CharField(max_length=50)
     job_end_year_mon =  models.CharField(max_length=7,
         validators=[
@@ -286,7 +286,7 @@ class DeanCV(models.Model):
                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
                 message='Only xxxx or xxxx-xx are allowed.'
             )
-        ],help_text="该职位的结束年份(xxxx)或者年月(xxxx-xx)",
+        ],verbose_name="该职位的结束年份(xxxx)或者年月(xxxx-xx)",
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
@@ -297,13 +297,13 @@ class DeanCV(models.Model):
                     ,("assistant-prof","助理教授/讲师")
                     ,("postdoc","博士后")
                     ,("other","其它")],
-                    default='other')
-    job_country= models.CharField(max_length=10,help_text="该职位所在地区与国家",)
-    job_institution=models.CharField(max_length=20,help_text="任职单位(具体到大学-学院或者研究所-实验室)")
+                    default='other',verbose_name="职位级别")
+    job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家")
+    job_institution=models.CharField(max_length=20,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
     job_location_category=models.CharField(max_length=10,
             choices=[("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
-                    default='other',help_text="任职单位类型(不能确定的情况下选择other)")
+                    default='other',verbose_name="任职单位类型(不能确定的情况下选择other)")
 
 
     class Meta:
@@ -322,7 +322,7 @@ class Deanedu(models.Model):
                 message='Only xxxx or xxxx-xx are allowed.'
             )
         ],
-        default='0000') #models.CharField(max_length=50)
+        default='0000',verbose_name="该教育经历的开始年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
     edu_end_year_mon =  models.CharField(max_length=7,
         validators=[
             MinLengthValidator(4),
@@ -331,15 +331,15 @@ class Deanedu(models.Model):
                 message='Only xxxx or xxxx-xx are allowed.'
             )
         ],
-        default='0000') #models.CharField(max_length=50)
-    edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")])
+        default='0000',verbose_name="该教育经历的结束年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
+    edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")],verbose_name="学位")
     # edu_location= models.CharField(max_length=20)
-    edu_country= models.CharField(max_length=10,help_text="学位授予国家或地区")
-    edu_institution=models.CharField(max_length=20,help_text="学位授予机构(具体到大学-学院或者研究所)")
+    edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区")
+    edu_institution=models.CharField(max_length=20,verbose_name="学位授予机构(具体到大学-学院或者研究所)")
     edu_location_category=models.CharField(max_length=10,
             choices=[("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
-                    default='other',help_text="学位授予单位类型(不能确定的情况下选择other)")
+                    default='other',verbose_name="学位授予单位类型(不能确定的情况下选择other)")
 
     class Meta:
         app_label = 'roster'
