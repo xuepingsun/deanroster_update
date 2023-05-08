@@ -32,12 +32,24 @@ class DeanIDInline(NestedTabularInline):
     
 class DeanCVInline(NestedTabularInline):
     model = DeanCV
-    extra=1
+#     extra=1
     # inlines = [ContractSubClauseInline]
+    def get_extra(self, request, obj=None, **kwargs):
+        # if the parent object already exists, don't show any extra rows
+        if obj:
+            return 0
+        # otherwise, show one extra row
+        return 1
 
 class DeaneduInline(NestedTabularInline):
     model = Deanedu
-    extra=1
+#     extra=1
+    def get_extra(self, request, obj=None, **kwargs):
+        # if the parent object already exists, don't show any extra rows
+        if obj:
+            return 0
+        # otherwise, show one extra row
+        return 1
 
 class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
     def formfield_for_foreignkey(self,db_field,request,**kwargs):
