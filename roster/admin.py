@@ -15,7 +15,7 @@ from .forms import DeanBasicForm
 # admin.site.register(Post)
 # admin.site.register(UserInput)
 class DeanIDInline(NestedTabularInline):
-    extra=2
+#     extra=2
     model = DeanID
 #     help_texts = {
 #     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
@@ -27,6 +27,12 @@ class DeanIDInline(NestedTabularInline):
     #     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
     #     'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
     #     }
+    def get_extra(self, request, obj=None, **kwargs):
+        # if the parent object already exists, don't show any extra rows
+        if obj:
+            return 0
+        # otherwise, show one extra row
+        return 2
 
 
     
@@ -82,7 +88,13 @@ class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
 
 class DepartmentInfoInline(NestedTabularInline):
     model = DepartmentInfo
-    extra=1
+#     extra=1
+    def get_extra(self, request, obj=None, **kwargs):
+        # if the parent object already exists, don't show any extra rows
+        if obj:
+            return 0
+        # otherwise, show one extra row
+        return 1
 
 
 class DeanBasicInLine(admin.TabularInline):
