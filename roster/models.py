@@ -159,6 +159,19 @@ class DeanBasic(models.Model):
     gender = models.CharField(max_length=6,choices=gender_choice,
             verbose_name="性别")
     is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],verbose_name="是否为常见名") #true or false
+    
+    
+    birth_year_mon = models.CharField(max_length=7,
+        validators=[
+            MinLengthValidator(4),
+            RegexValidator(
+                regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
+                message='Only xxxx or xxxx-xx are allowed.'
+            )
+        ],
+        verbose_name="出生年月",
+        default='0000') #models.CharField(max_length=50)
+    
 
     # st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
     st_year_mon = models.CharField(max_length=7,
@@ -291,7 +304,7 @@ class DeanCV(models.Model):
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=50,verbose_name="该职位的具体名称")
+    job_title= models.CharField(max_length=100,verbose_name="该职位的具体名称")
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
@@ -302,7 +315,7 @@ class DeanCV(models.Model):
     job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家")
     job_institution=models.CharField(max_length=20,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
     job_location_category=models.CharField(max_length=10,
-            choices=[("within","本院"),("china","国内其他院所"),
+            choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
                     default='other',verbose_name="任职单位类型(不能确定的情况下选择other)")
 
@@ -341,7 +354,7 @@ class Deanedu(models.Model):
     edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区")
     edu_institution=models.CharField(max_length=20,verbose_name="学位授予机构(具体到大学-学院或者研究所)")
     edu_location_category=models.CharField(max_length=10,
-            choices=[("within","本院"),("china","国内其他院所"),
+            choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
                     default='other',verbose_name="学位授予单位类型(不能确定的情况下选择other)")
 
