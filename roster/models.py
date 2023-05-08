@@ -161,16 +161,16 @@ class DeanBasic(models.Model):
     is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],verbose_name="是否为常见名") #true or false
     
     
-    birth_year_mon = models.CharField(max_length=7,
-        validators=[
-            MinLengthValidator(4),
-            RegexValidator(
-                regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
-                message='Only xxxx or xxxx-xx are allowed.'
-            )
-        ],
-        verbose_name="出生年月",
-        default='0000') #models.CharField(max_length=50)
+#     birth_year_mon = models.CharField(max_length=7,
+#         validators=[
+#             MinLengthValidator(4),
+#             RegexValidator(
+#                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
+#                 message='Only xxxx or xxxx-xx are allowed.'
+#             )
+#         ],
+#         verbose_name="出生年月",
+#         default='0000') #models.CharField(max_length=50)
     
 
     # st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
