@@ -147,7 +147,7 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
 
 admin.site.register(SchoolInfo,SchoolInfoAdmin)
 admin.site.register(DeanBasic,DeanBasicAdmin)
-admin.site.register(XiInstitute)
+#admin.site.register(XiInstitute)
 
 admin.site.index_template = 'admin/admin_index.html'
 def get_schools_with_dean_counts():
