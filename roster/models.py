@@ -331,7 +331,16 @@ class Deanedu(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     dean_info = models.ForeignKey(DeanBasic, on_delete=models.DO_NOTHING)
-    edu_st_year_mon = models.CharField(max_length=7,
+#     edu_st_year_mon = models.CharField(max_length=7,
+#         validators=[
+#             MinLengthValidator(4),
+#             RegexValidator(
+#                 regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
+#                 message='Only xxxx or xxxx-xx are allowed.'
+#             )
+#         ],
+#         default='0000',verbose_name="该教育经历的开始年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
+    edu_degree_year_mon =  models.CharField(max_length=7,
         validators=[
             MinLengthValidator(4),
             RegexValidator(
@@ -339,16 +348,7 @@ class Deanedu(models.Model):
                 message='Only xxxx or xxxx-xx are allowed.'
             )
         ],
-        default='0000',verbose_name="该教育经历的开始年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
-    edu_end_year_mon =  models.CharField(max_length=7,
-        validators=[
-            MinLengthValidator(4),
-            RegexValidator(
-                regex=r'^[0-9]{4}(\-[0-9]{2}){0,1}$',
-                message='Only xxxx or xxxx-xx are allowed.'
-            )
-        ],
-        default='0000',verbose_name="该教育经历的结束年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
+        default='0000',verbose_name="该学位的授予年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
     edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")],verbose_name="学位")
     # edu_location= models.CharField(max_length=20)
     edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区")
