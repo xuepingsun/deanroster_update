@@ -44,7 +44,7 @@ class SchoolInfo(models.Model):
     #university category: 985, 211, 985&211,
     university_cls_choice=[('985','985'),
                            ('211','211'),
-                           ('985&211','985&211'),
+#                            ('985&211','985&211'),
                            ('none','none')]
     university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na',verbose_name="大学985/211类别")
 
