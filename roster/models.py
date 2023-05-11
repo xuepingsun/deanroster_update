@@ -13,7 +13,7 @@ import hashlib
 import uuid
 from typing import Any
 from .reference_list import university_pilot_list
-
+from multiselectfield import MultiSelectField
 
 class XiInstitute(models.Model):
     university_choice=university_pilot_list
@@ -72,7 +72,9 @@ class SchoolInfo(models.Model):
                     # ('gov','govmanagement')
                     ('law','法学')
                     ]
-    school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na',verbose_name="学科大类")
+#     school_category = models.CharField(max_length=4,choices=school_cls_choice,default='na',verbose_name="学科大类") 
+    school_category=MultiSelectField(max_length=4,choices=school_cls_choice,verbose_name="学科大类",blank=True) 
+
 
     class Meta:
         app_label = 'roster'
