@@ -98,7 +98,7 @@ class DepartmentInfo(models.Model):
 
     #---------------------scopus info ----------------
     department_name=models.CharField(max_length=30,verbose_name="系/所名称")
-    department_name_en=models.CharField(max_length=30,verbose_name="系/所名称英文")
+#     department_name_en=models.CharField(max_length=30,verbose_name="系/所名称英文")
 
 
     class Meta:
