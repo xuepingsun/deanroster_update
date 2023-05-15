@@ -14,4 +14,5 @@ class DeanBasicForm(forms.ModelForm):
     class Meta:
         model = DeanBasic
         fields = "__all__" #'university','school','name', 'st_year_mon','end_year_mon', 'CV_string']
+        verbose_name="任命信息"
         #"__all__" #[
