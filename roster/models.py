@@ -306,7 +306,7 @@ class DeanCV(models.Model):
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=100,verbose_name="该职位的具体名称")
+    job_title= models.CharField(max_length=200,verbose_name="该职位的具体名称")
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
@@ -315,7 +315,7 @@ class DeanCV(models.Model):
                     ,("other","其它")],
                     default='other',verbose_name="职位级别")
     job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家")
-    job_institution=models.CharField(max_length=20,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
+    job_institution=models.CharField(max_length=200,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
     job_location_category=models.CharField(max_length=10,
             choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
