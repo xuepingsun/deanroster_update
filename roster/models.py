@@ -356,7 +356,7 @@ class Deanedu(models.Model):
     edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")],verbose_name="学位")
     # edu_location= models.CharField(max_length=20)
     edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区")
-    edu_institution=models.CharField(max_length=20,verbose_name="学位授予机构(具体到大学-学院或者研究所)")
+    edu_institution=models.CharField(max_length=100,verbose_name="学位授予机构(具体到大学-学院或者研究所)")
     edu_location_category=models.CharField(max_length=10,
             choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
