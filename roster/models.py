@@ -312,7 +312,8 @@ class DeanCV(models.Model):
                     ("prof","教授"),("associate-prof","副教授")
                     ,("assistant-prof","助理教授/讲师")
                     ,("postdoc","博士后")
-                    ,("other","其它")],
+                    #,("other","其它")
+                    ],
                     default='other',verbose_name="职位级别")
     job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家")
     job_institution=models.CharField(max_length=200,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
