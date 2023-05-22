@@ -312,6 +312,7 @@ class DeanCV(models.Model):
                     ("prof","教授"),("associate-prof","副教授")
                     ,("assistant-prof","助理教授/讲师")
                     ,("postdoc","博士后")
+                    ,("research-associate","研究员")
                     #,("other","其它")
                     ],
                     default='other',verbose_name="职位级别")
