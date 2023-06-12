@@ -228,9 +228,9 @@ class DeanBasic(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     # edu_background_string = models.TextField()
-    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接")
+    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接",max_length=255)
     # CV_string = models.TextField()
-    CV_string_url= models.URLField(verbose_name="履历信息的网页链接")
+    CV_string_url= models.URLField(verbose_name="履历信息的网页链接",max_length=255)
 
 
     class Meta:
@@ -272,7 +272,7 @@ class DeanID(models.Model):
             )
         ],
         default='0000',verbose_name="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
-    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接")
+    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接",max_length=255)
     h_index_till_2022=models.IntegerField(max_length=20,default=-99,verbose_name="该院长在此数据库中的截止目前的h-index")
 
 
