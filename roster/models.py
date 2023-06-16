@@ -228,9 +228,9 @@ class DeanBasic(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     # edu_background_string = models.TextField()
-    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接",max_length=255,default='na')
+    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接",max_length=255,default='www.baidu.com')
     # CV_string = models.TextField()
-    CV_string_url= models.URLField(verbose_name="履历信息的网页链接",max_length=255,default='na')
+    CV_string_url= models.URLField(verbose_name="履历信息的网页链接",max_length=255,default='www.baidu.com')
 
 
     class Meta:
