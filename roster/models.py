@@ -97,7 +97,7 @@ class DepartmentInfo(models.Model):
     school_info = models.ForeignKey(SchoolInfo, on_delete=models.DO_NOTHING)
 
     #---------------------scopus info ----------------
-    department_name=models.CharField(max_length=30,verbose_name="系/所名称")
+    department_name=models.CharField(max_length=60,verbose_name="系/所名称")
 #     department_name_en=models.CharField(max_length=30,verbose_name="系/所名称英文")
 
 
