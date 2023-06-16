@@ -228,9 +228,9 @@ class DeanBasic(models.Model):
     # #---------------------CV ----------------
     # """do not allow for missing"""
     # edu_background_string = models.TextField()
-    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接",max_length=255)
+    edu_background_url= models.URLField(verbose_name="教育背景信息的网页链接",max_length=255,default='na')
     # CV_string = models.TextField()
-    CV_string_url= models.URLField(verbose_name="履历信息的网页链接",max_length=255)
+    CV_string_url= models.URLField(verbose_name="履历信息的网页链接",max_length=255,default='na')
 
 
     class Meta:
@@ -262,7 +262,7 @@ class DeanID(models.Model):
                                                         # ("OCRID","OCRID")
                                                         ],verbose_name="学术发表数据库名称",
                                                         help_text="自然科学范畴内不应该缺失scopus ID，社会科学范畴内不应该缺失 wanfang；大部分情况下应该二者兼有")
-    auid=models.CharField(max_length=20,verbose_name="学者ID",help_text="该院长在此数据库中的学者ID如果有一个以上，请分行填写") # allow to have multiple or missing at all
+    auid=models.CharField(max_length=20,verbose_name="学者ID",help_text="该院长在此数据库中的学者ID如果有一个以上，请分行填写",default='na') # allow to have multiple or missing at all
     auid_firstyear_in_database= models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
@@ -272,7 +272,7 @@ class DeanID(models.Model):
             )
         ],
         default='0000',verbose_name="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
-    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接",max_length=255)
+    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接",max_length=255,default='na')
     h_index_till_2022=models.IntegerField(max_length=20,default=-99,verbose_name="该院长在此数据库中的截止目前的h-index")
 
 
@@ -306,7 +306,7 @@ class DeanCV(models.Model):
         default='0000') #models.CharField(max_length=50)
     # job_content= models.TextField()
 
-    job_title= models.CharField(max_length=200,verbose_name="该职位的具体名称")
+    job_title= models.CharField(max_length=200,verbose_name="该职位的具体名称",default='na')
     job_title_level= models.CharField(max_length=20,
             choices=[("dean","院长"),("vice-dean","副院长"),
                     ("prof","教授"),("associate-prof","副教授")
@@ -316,8 +316,8 @@ class DeanCV(models.Model):
                     #,("other","其它")
                     ],
                     default='other',verbose_name="职位级别")
-    job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家")
-    job_institution=models.CharField(max_length=200,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)")
+    job_country= models.CharField(max_length=10,verbose_name="该职位所在地区与国家",default='na')
+    job_institution=models.CharField(max_length=200,verbose_name="任职单位(具体到大学-学院或者研究所-实验室)",default='na')
     job_location_category=models.CharField(max_length=10,
             choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
@@ -355,8 +355,8 @@ class Deanedu(models.Model):
         default='0000',verbose_name="该学位的授予年份(xxxx)或者年月(xxxx-xx)") #models.CharField(max_length=50)
     edu_degree=  models.CharField(max_length=10,choices=[("phd","博士"),("ma","硕士"),("ba","学士")],verbose_name="学位")
     # edu_location= models.CharField(max_length=20)
-    edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区")
-    edu_institution=models.CharField(max_length=100,verbose_name="学位授予机构(具体到大学-学院或者研究所)")
+    edu_country= models.CharField(max_length=10,verbose_name="学位授予国家或地区",default='na')
+    edu_institution=models.CharField(max_length=100,verbose_name="学位授予机构(具体到大学-学院或者研究所)",default='na')
     edu_location_category=models.CharField(max_length=10,
             choices=[("within-uni","本校"),("within","本院"),("china","国内其他院所"),
                     ("oversea","海外")],
