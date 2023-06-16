@@ -272,7 +272,7 @@ class DeanID(models.Model):
             )
         ],
         default='0000',verbose_name="该院长在此数据库中的第一篇发表时间(包含硕士以上论文)")
-    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接",max_length=255,default='na')
+    author_profile_url=models.URLField(verbose_name="该院长在此数据库中的学者页面链接",max_length=255,default='www.baidu.com')
     h_index_till_2022=models.IntegerField(max_length=20,default=-99,verbose_name="该院长在此数据库中的截止目前的h-index")
 
 
