@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "roster",
     "django_mysql",
-    "nested_inline"
+    "nested_inline",
+    "multiselectfield"
 ]
 
 MIDDLEWARE = [

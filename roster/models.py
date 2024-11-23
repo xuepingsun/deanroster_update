@@ -15,6 +15,7 @@ from typing import Any
 from .reference_list import university_pilot_list
 from multiselectfield import MultiSelectField
 
+
 class XiInstitute(models.Model):
     university_choice=university_pilot_list
     university = models.CharField(max_length=50,choices=university_choice,default='na',verbose_name="大学名称")
@@ -25,13 +26,29 @@ class XiInstitute(models.Model):
         app_label = 'roster'
         #constrain duplicates
         unique_together = (("university", "institute_name"),)
-        
+
         verbose_name = "校级马列学院与习近平思想研究院所"
         verbose_name_plural = "校级马列学院与习近平思想研究院所"
 
     def __str__(self):
         return '-'.join([self.university,self.institute_name])
+#
+class SchoolCategory(models.Model):
+    code = models.CharField(max_length=10, primary_key=True)
+    name = models.CharField(max_length=50, verbose_name="学科名称")
 
+    class Meta:
+        verbose_name = "学科大类"
+        verbose_name_plural = "学科大类"
+
+    def __str__(self):
+        return self.name
+#
+class SQLiteMultiSelectField(MultiSelectField):
+    def get_prep_value(self, value):
+        if isinstance(value, list):
+            return ','.join(map(str, value))
+        return value
 
 class SchoolInfo(models.Model):
     """
@@ -72,9 +89,15 @@ class SchoolInfo(models.Model):
                     # ('gov','govmanagement')
                     ('law','法学')
                     ]
-#     school_category = models.CharField(max_length=50,choices=school_cls_choice,default='na',verbose_name="学科大类") 
-    school_category=MultiSelectField(max_length=50,choices=school_cls_choice,verbose_name="学科大类",blank=True) 
+#     school_category = models.CharField(max_length=50,choices=school_cls_choice,default='na',verbose_name="学科大类")
+    # school_category=MultiSelectField(max_length=50,
+    #                 choices=school_cls_choice,verbose_name="学科大类",blank=True)
 
+    school_category = models.ManyToManyField(
+        SchoolCategory,
+        verbose_name="学科大类",
+        blank=True
+    )
 
     class Meta:
         app_label = 'roster'
@@ -84,7 +107,7 @@ class SchoolInfo(models.Model):
             models.UniqueConstraint(fields=['university','school'],
                                     name='university_school')
         ]
-        
+
         verbose_name = "院系名单"
         verbose_name_plural = "院系名单"
 
@@ -161,8 +184,8 @@ class DeanBasic(models.Model):
     gender = models.CharField(max_length=6,choices=gender_choice,
             verbose_name="性别")
     is_name_common= models.CharField(max_length=20,choices=[("1","是"),("0","否")],verbose_name="是否为常见名") #true or false
-    
-    
+
+
     birth_year_mon = models.CharField(max_length=7,
         validators=[
             MinLengthValidator(4),
@@ -173,7 +196,7 @@ class DeanBasic(models.Model):
         ],
         verbose_name="出生年月",
         default='0000') #models.CharField(max_length=50)
-    
+
 
     # st_year_mon=models.DateTimeField(input_formats=['%Y', '%Y-%m'],help_text="任职开始年月")
     st_year_mon = models.CharField(max_length=7,
@@ -242,8 +265,8 @@ class DeanBasic(models.Model):
             fields=["university_school","name_last","name_first","st_year_mon"], #,"st_year_mon"
             name='university_school_name_st_year_mon')
         ]
-        
-        
+
+
         verbose_name = "院长信息"
         verbose_name_plural = "院长信息"
 
@@ -326,7 +349,7 @@ class DeanCV(models.Model):
 
     class Meta:
         app_label = 'roster'
-        
+
         verbose_name = "工作履历"
         verbose_name_plural = "工作履历"
 

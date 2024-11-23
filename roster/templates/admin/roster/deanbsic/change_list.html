@@ -1,0 +1,26 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+    {% get_completeness_percentage as completeness %}
+    {% get_missing_years as missing_years %}
+    <h3>Data Completeness: {{ completeness }}%</h3>
+    <div style="width: 100%; background: #e0e0e0; border-radius: 5px; overflow: hidden;">
+        <div style="width: {{ completeness }}%; background: #76ce60; height: 20px; text-align: center; color: white;">
+            {{ completeness }}%
+        </div>
+    </div>
+    <br/>
+    {% if missing_years %}
+        <p>The following years are missing dean information:</p>
+        <ul>
+            {% for year in missing_years %}
+                <li>{{ year }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>All years from 2000 to 2024 have dean information.</p>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
