@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dean Roster</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .high-completeness {
+            color: green;
+        }
+        .low-completeness {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dean Info Completeness</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>University</th>
+                <th>School</th>
+                <th>Total Deans</th>
+                <th>Completeness (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for school in school_data %}
+            <tr>
+                <td>{{ school.university_name }}</td>
+                <td>{{ school.school_name }}</td>
+                <td>{{ school.total_deans }}</td>
+                <td class="{% if school.completeness_percentage > 75 %}high-completeness{% else %}low-completeness{% endif %}">
+                    {{ school.completeness_percentage }}%
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

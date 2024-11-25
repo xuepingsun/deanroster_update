@@ -11,6 +11,7 @@ register = template.Library()
 # utils.py (continued)
 from .models import DeanBasic
 
+
 def extract_year(date_string):
     """
     Extracts the year from a date string in the format 'YYYY' or 'YYYY-MM'.
