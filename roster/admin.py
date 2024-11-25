@@ -8,15 +8,19 @@ from django.forms import  NumberInput, URLInput, Select, DateInput
 from django import forms
 
 from django.utils.html import format_html
-from .utils import get_completeness_percentage
+
+# from .utils import get_completeness_percentage
 
 # Register your models here.
-from .models import XiInstitute,SchoolInfo,SchoolCategory, DepartmentInfo,DeanBasic, DeanID,DeanCV,Deanedu#,UserVisit #Post,UserInput,
+from .models import (XiInstitute,SchoolInfo #,SchoolCategory,
+                    ,DepartmentInfo,DeanBasic, DeanID,DeanCV,Deanedu)#,UserVisit #Post,UserInput,
 from .forms import DeanBasicForm
+from .reference_list import university_pilot_list
 # from .models import DeanInfo
 
-# admin.site.register(Post)
-# admin.site.register(UserInput)
+
+current_university_names=[uni[1] for uni in university_pilot_list]
+
 class DeanIDInlineForm(forms.ModelForm):
     class Meta:
         model = DeanID
@@ -34,16 +38,12 @@ class DeanIDInline(NestedTabularInline):
     model = DeanID
     form = DeanIDInlineForm
 
-#     help_texts = {
-#     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
-#     'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
-# }
-    # class Meta:
-    #     # help_text='如果该院长在此数据库中的学者ID有一个以上，请逐个填写\n 该院长在此数据库中的第一篇发表时间(包含硕士以上论文)'
-    #     help_texts = {
-    #     'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
-    #     'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
-    #     }
+    class Meta:
+        # help_text='如果该院长在此数据库中的学者ID有一个以上，请逐个填写\n 该院长在此数据库中的第一篇发表时间(包含硕士以上论文)'
+        help_texts = {
+        'auid': '该院长在此数据库中的学者ID。如果有一个以上，请分行填写',
+        'auid_firstyear_in_database': '该院长在此数据库中的第一篇发表时间(包含硕士以上论文)',
+        }
     def get_extra(self, request, obj=None, **kwargs):
         # if the parent object already exists, don't show any extra rows
         if obj:
@@ -130,43 +130,42 @@ class DeaneduInline(NestedTabularInline):
         'edu_location_category',
     )
 
-# class DeanBasicAdmin(NestedModelAdmin,admin.ModelAdmin):
-#     def formfield_for_foreignkey(self,db_field,request,**kwargs):
-#         if db_field.name=="university_school":
-#             kwargs['queryset']=SchoolInfo.objects.all()
-#         return super().formfield_for_foreignkey(db_field,request,**kwargs)
-#     # fieldsets = (
-#     #     (("Basic Info"), {'fields': ("user", "website")}),
-#     #     (("Phones"), {'fields': (
-#     #         (("Primary"), {'fields': (("primary_phone_country", "primary_phone_area", "primary_phone_number"),)}),
-#     #         (("Secondary"), {'fields': (("secondary_phone_country", "secondary_phone_area", "secondary_phone_number"),)}),
-#     #         )}),
-#     #     )
-#
-#
-#     inlines = [DeanIDInline,DeanCVInline,DeaneduInline]
-#     form=DeanBasicForm
-    # change_form_template='admin/deanbasic_university_school_form.html'
-
-# @admin.site.register(DeanBasicAdmin)
-# class AllModelAdmin(admin.ModelAdmin):
-#     formfield_overrides = {
-#         models.CharField: {'widget': TextInput(attrs={'size':'20'})},
-#         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
-#     }
-
-
-# admin.py
 
 class DeanBasicAdmin(NestedModelAdmin, admin.ModelAdmin):
-    change_list_template = 'admin/roster/deanbasic/change_list.html'  # Replace 'your_app_name' with your actual app name
+    # change_list_template = 'admin/roster/deanbasic/change_list.html'  # Replace 'your_app_name' with your actual app name
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "university_school":
-            kwargs['queryset'] = SchoolInfo.objects.all()
+            kwargs['queryset'] = SchoolInfo.objects.filter(university__in=current_university_names)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-    list_display = ('university_school', 'full_name', 'tenure_period')
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        # Restrict to a specific school_category, e.g., "Public Universities"
+        return queryset.filter(university_school__university__in=current_university_names)
+
+
+    def cv_count(self, obj):
+        """
+        Count the number of CV lines related to this DeanBasic instance.
+        """
+        return DeanCV.objects.filter(dean_info=obj).exclude(
+                        job_st_year_mon__isnull=True
+                    ).exclude(
+                        job_st_year_mon=''
+                    ).exclude(
+                        job_st_year_mon='0000'
+                    ).count()
+    cv_count.short_description = 'valid CV records'
+
+    def edu_count(self, obj):
+        """
+        Count the number of education lines related to this DeanBasic instance.
+        """
+        return Deanedu.objects.filter(dean_info=obj, edu_degree='phd').count()
+    edu_count.short_description = 'has phd records'
+
+    list_display = ('university_school', 'full_name', 'tenure_period','cv_count','edu_count')
 
     inlines = [DeanIDInline, DeanCVInline, DeaneduInline]
     form = DeanBasicForm
@@ -179,7 +178,6 @@ class DeanBasicAdmin(NestedModelAdmin, admin.ModelAdmin):
         return f"{obj.st_year_mon} - {obj.end_year_mon}"
     tenure_period.short_description = 'Tenure Period'
 
-# admin.site.register(DeanBasic, DeanBasicAdmin)
 
 
 
@@ -205,80 +203,68 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
         widgets = {
             'school_category': CheckboxSelectMultiple(),
         }
+    def num_deans(self, obj):
+        return obj.deanbasic_set.count()
+    num_deans.short_description = 'Number of Deans'
 
-    list_display = ('university', 'school', 'school_en')
-    search_fields = ('university', 'school', 'school_en')
+    def dean_info_progress(self, obj):
+        """
+        Display a progress bar showing which years (2000–2024) have dean data.
+        """
+        # Query DeanBasic records associated with the current SchoolInfo object
+        dean_records = DeanBasic.objects.filter(university_school=obj)
+
+        # Initialize a set to track all years with data
+        years_with_data = set()
+
+        # Loop through dean records to calculate years covered
+        for record in dean_records:
+            try:
+                start_year = int(record.st_year_mon[:4]) if record.st_year_mon != '0000' else 2025
+                 # Extract the year part
+                end_year = int(record.end_year_mon[:4]) if record.end_year_mon != '0000' else 2024
+                years_with_data.update(range(start_year, end_year + 1))
+            except ValueError:
+                continue  # Skip if data is invalid
+
+        # Generate progress bar for years 2000–2024
+        progress_bar = '<div style="display: flex; gap: 2px; align-items: center;">'
+        for year in range(2000, 2025):
+            if year in years_with_data:
+                progress_bar += (
+                    f'<div title="{year}" style="width: 4%; background-color: green; height: 20px; border: 1px solid black;"></div>'
+                )
+            else:
+                progress_bar += (
+                    f'<div title="{year}" style="width: 4%; background-color: lightgray; height: 20px; border: 1px solid black;"></div>'
+                )
+        progress_bar += '</div>'
+
+        return format_html(progress_bar)
+
+    dean_info_progress.short_description = 'Dean Info Coverage'
+
+
     # filter_horizontal = ('school_category',)
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        # Restrict to a specific school_category, e.g., "Public Universities"
+        current_university_names=[uni[1] for uni in university_pilot_list]
+        return queryset.filter(university__in=current_university_names)
+
+    list_display = ('university', 'school', 'num_deans','dean_info_progress')
+    search_fields = ('university', 'school', 'school_en')
 
     inlines = [DepartmentInfoInline] #,DeanBasicInLine
 
     # list_display = ['university','school', 'num_deans']#'university_school',
     #
-    def num_deans(self, obj):
-        return obj.deanbasic_set.count()
-    num_deans.short_description = 'Number of Deans'
-    #
-    # def get_queryset(self, request):
-    #     queryset = super().get_queryset(request)
-    #     queryset = queryset.annotate(num_deans=models.Count('deanbasic'))
-    #     return queryset
-    # def num_deans_display(self, obj):
-    #     return obj.num_deans
-    # num_deans_display.short_description = 'Number of deans'
-    #
 
 
-# admin.py
-# from django.contrib import admin
-# from django.contrib.contenttypes.models import ContentType
-# from django.db import models
-# from django.template.response import TemplateResponse
-
-# from .models import SchoolInfo, DeanBasic
-
-
-# class SchoolInfoAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'num_deans')
-#     ordering = ('name',)
-#
-#     def num_deans(self, obj):
-#         return obj.deanbasic_set.count()
-#
-#     num_deans.short_description = 'Number of Deans'
-# def get_model_info(model):
-#     content_type = ContentType.objects.get_for_model(model)
-#     app_label = content_type.app_label
-#     model_name = content_type.model
-#     return app_label, model_name
-#
-#
-# class SchoolInfoDashboard(admin.AdminSite):
-#     site_header = f"{get_model_info(SchoolInfo)[1].title()} Administration"
-#     site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
-#     index_title = f"{get_model_info(SchoolInfo)[1].title()} Dashboard"
-#     index_template = 'admin/admin_index.html'
-#
-#     def get_urls(self):
-#         from django.urls import path
-#         urls = super().get_urls()
-#         urls += [
-#             path('', self.admin_view(self.dashboard_view), name='index'),
-#         ]
-#         return urls
-#
-#     def dashboard_view(self, request):
-#         schools = SchoolInfo.objects.annotate(num_deans=models.Count('deanbasic'))
-#         context = {
-#             'schools': schools,
-#         }
-#         return TemplateResponse(request, self.index_template, context)
-#
-#
-# admin_site = SchoolInfoDashboard(name='schoolinfoadmin')
 
 
 admin.site.register(SchoolInfo,SchoolInfoAdmin)
-admin.site.register(SchoolCategory)
+# admin.site.register(SchoolCategory)
 admin.site.register(DeanBasic,DeanBasicAdmin)
 admin.site.register(XiInstitute)
 
@@ -301,3 +287,15 @@ admin.site.site_header = f"{get_model_info(SchoolInfo)[1].title()} Administratio
 admin.site.site_title = f"{get_model_info(SchoolInfo)[1].title()} Admin Portal"
 admin.site.index_title = f"{get_model_info(SchoolInfo)[1].title()} Dashboard"
 admin.site.schools = get_schools_with_dean_counts()
+
+
+    # def data_completeness(self, obj):
+    #     percentage = get_completeness_percentage()
+    #     return format_html(
+    #         '<div style="width: 100px; background: #e0e0e0;">'
+    #         '<div style="width: {}%; background: #76ce60;">&nbsp;</div>'
+    #         '</div>'
+    #         '<span>{}% Complete</span>',
+    #         percentage, percentage
+    #     )
+    # data_completeness.short_description = 'Data Completeness'

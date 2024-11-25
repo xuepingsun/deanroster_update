@@ -33,16 +33,16 @@ class XiInstitute(models.Model):
     def __str__(self):
         return '-'.join([self.university,self.institute_name])
 #
-class SchoolCategory(models.Model):
-    code = models.CharField(max_length=10, primary_key=True)
-    name = models.CharField(max_length=50, verbose_name="学科名称")
-
-    class Meta:
-        verbose_name = "学科大类"
-        verbose_name_plural = "学科大类"
-
-    def __str__(self):
-        return self.name
+# class SchoolCategory(models.Model):
+#     code = models.CharField(max_length=10, primary_key=True)
+#     name = models.CharField(max_length=50, verbose_name="学科名称")
+#
+#     class Meta:
+#         verbose_name = "学科大类"
+#         verbose_name_plural = "学科大类"
+#
+#     def __str__(self):
+#         return self.name
 #
 class SQLiteMultiSelectField(MultiSelectField):
     def get_prep_value(self, value):
@@ -79,10 +79,10 @@ class SchoolInfo(models.Model):
         default='0000',verbose_name="学院创始年份")
 
     school_cls_choice=[
-                    ('life','生命科学'),
-                    ('chem','化学'),
-                    ('phys','物理'),
-                    ('macs','数学与计算科学'),
+                    # ('life','生命科学'),
+                    # ('chem','化学'),
+                    # ('phys','物理'),
+                    # ('macs','数学与计算科学'),
                     ('econ','经济'),
                     ('soci','社会学'),
                     ('pol','政府管理与政治学'),
@@ -90,14 +90,14 @@ class SchoolInfo(models.Model):
                     ('law','法学')
                     ]
 #     school_category = models.CharField(max_length=50,choices=school_cls_choice,default='na',verbose_name="学科大类")
-    # school_category=MultiSelectField(max_length=50,
-    #                 choices=school_cls_choice,verbose_name="学科大类",blank=True)
+    school_category=MultiSelectField(max_length=50,
+                    choices=school_cls_choice,verbose_name="学科大类",blank=True)
 
-    school_category = models.ManyToManyField(
-        SchoolCategory,
-        verbose_name="学科大类",
-        blank=True
-    )
+    # school_category = models.ManyToManyField(
+    #     SchoolCategory,
+    #     verbose_name="学科大类",
+    #     blank=True
+    # )
 
     class Meta:
         app_label = 'roster'
