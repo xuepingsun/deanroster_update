@@ -201,8 +201,8 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
         model = SchoolInfo
         fields = '__all__'
         widgets = {
-            'school_category': CheckboxSelectMultiple(),
-        }
+          'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+             }
     def num_deans(self, obj):
         return obj.deanbasic_set.count()
     num_deans.short_description = 'Number of Deans'
