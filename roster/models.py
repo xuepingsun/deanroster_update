@@ -66,8 +66,8 @@ class SchoolInfo(models.Model):
     university_category = models.CharField(max_length=7,choices=university_cls_choice,default='na',verbose_name="大学985/211类别")
 
 
-    school = models.CharField(max_length=50,default='na',verbose_name="学院名称")
-    school_en= models.CharField(max_length=50,default='na',verbose_name="学院英文名")
+    school = models.CharField(max_length=100,default='na',verbose_name="学院名称")
+    school_en= models.CharField(max_length=150,default='na',verbose_name="学院英文名")
     school_st_year=  models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
