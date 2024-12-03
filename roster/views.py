@@ -134,13 +134,13 @@ def school_completeness_view(request):
                     ).count() > 0
                 has_phd_info= Deanedu.objects.filter(dean_info=dean, edu_degree='phd').count()>0
 
-                for year in range(max(app_st_year, start_year), min(app_end_year + 1, end_year)):
-                    # Check if dean's fields are complete for this year
-                    # if dean.name_first and dean.name_last and dean.st_year_mon != '0000':
-                        if has_phd_info:
-                            valid_count += 1
-                        if has_valid_cv:
-                            valid_count += 1
+            for year in range(max(app_st_year, start_year), min(app_end_year + 1, end_year)):
+                # Check if dean's fields are complete for this year
+                # if dean.name_first and dean.name_last and dean.st_year_mon != '0000':
+                if has_phd_info:
+                    valid_count += 1
+                if has_valid_cv:
+                    valid_count += 1
 
         # Calculate completeness score
         completeness_percentage = (valid_count / total_count) if total_count > 0 else 0
