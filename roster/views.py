@@ -114,11 +114,16 @@ def school_completeness_view(request):
         total_count = total_years * total_fields_per_year
 
         # Check completeness for each dean
+        is_most_recent_dean=False
         for dean in deans:
             try:
                 # Get the start and end years for this dean's appointment
                 app_st_year = int(dean.st_year_mon[:4]) if dean.st_year_mon and dean.st_year_mon != '0000' else None
                 app_end_year = int(dean.end_year_mon[:4]) if dean.end_year_mon and dean.end_year_mon != '0000' else None
+
+                if app_st_year>=2016 and not is_most_recent_dean:
+                    app_end_year=2024
+                    is_most_recent_dean=True
             except ValueError:
                 continue  # Skip invalid dates
 
@@ -134,13 +139,13 @@ def school_completeness_view(request):
                     ).count() > 0
                 has_phd_info= Deanedu.objects.filter(dean_info=dean, edu_degree='phd').count()>0
 
-            for year in range(max(app_st_year, start_year), min(app_end_year + 1, end_year)):
-                # Check if dean's fields are complete for this year
-                # if dean.name_first and dean.name_last and dean.st_year_mon != '0000':
-                if has_phd_info:
-                    valid_count += 1
-                if has_valid_cv:
-                    valid_count += 1
+                for year in range(max(app_st_year, start_year), min(app_end_year + 1, end_year)):
+                    # Check if dean's fields are complete for this year
+                    # if dean.name_first and dean.name_last and dean.st_year_mon != '0000':
+                    if has_phd_info:
+                        valid_count += 1
+                    if has_valid_cv:
+                        valid_count += 1
 
         # Calculate completeness score
         completeness_percentage = (valid_count / total_count) if total_count > 0 else 0
