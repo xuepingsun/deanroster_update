@@ -121,7 +121,7 @@ def school_completeness_view(request):
                 app_st_year = int(dean.st_year_mon[:4]) if dean.st_year_mon and dean.st_year_mon != '0000' else None
                 app_end_year = int(dean.end_year_mon[:4]) if dean.end_year_mon and dean.end_year_mon != '0000' else None
 
-                if app_st_year>=2016 and not is_most_recent_dean:
+                if app_st_year and app_st_year>=2016 and (not is_most_recent_dean) and (not app_end_year):
                     app_end_year=2024
                     is_most_recent_dean=True
             except ValueError:
