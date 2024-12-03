@@ -117,14 +117,14 @@ def school_completeness_view(request):
         for dean in deans:
             try:
                 # Get the start and end years for this dean's appointment
-                st_year = int(dean.st_year_mon[:4]) if dean.st_year_mon and dean.st_year_mon != '0000' else None
-                end_year = int(dean.end_year_mon[:4]) if dean.end_year_mon and dean.end_year_mon != '0000' else None
+                app_st_year = int(dean.st_year_mon[:4]) if dean.st_year_mon and dean.st_year_mon != '0000' else None
+                app_end_year = int(dean.end_year_mon[:4]) if dean.end_year_mon and dean.end_year_mon != '0000' else None
             except ValueError:
                 continue  # Skip invalid dates
 
             # Only count years within the valid range
-            if st_year and end_year:
-                            # Determine if the dean has valid CV information
+            if app_st_year and app_end_year:
+                 # Determine if the dean has valid CV information
                 has_valid_cv = DeanCV.objects.filter(dean_info=dean).exclude(
                         job_st_year_mon__isnull=True
                     ).exclude(
@@ -134,7 +134,7 @@ def school_completeness_view(request):
                     ).count() > 0
                 has_phd_info= Deanedu.objects.filter(dean_info=dean, edu_degree='phd').count()>0
 
-                for year in range(max(st_year, start_year), min(end_year + 1, end_year)):
+                for year in range(max(app_st_year, start_year), min(app_end_year + 1, end_year)):
                     # Check if dean's fields are complete for this year
                     # if dean.name_first and dean.name_last and dean.st_year_mon != '0000':
                         if has_phd_info:
