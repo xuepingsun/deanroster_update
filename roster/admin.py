@@ -271,10 +271,10 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
 
     inlines = [DepartmentInfoInline,SchoolSiteMapNameInline] #,DeanBasicInLine
 
-    # list_display = ['university','school', 'num_deans']#'university_school',
-    def save_model(self, request, obj, form, change):
-        print(f"Cleaned data: {form.cleaned_data.get('school_category')}")  # Log the categories
-        super().save_model(request, obj, form, change)
+    # # list_display = ['university','school', 'num_deans']#'university_school',
+    # def save_model(self, request, obj, form, change):
+    #     print(f"Cleaned data: {form.cleaned_data.get('school_category')}")  # Log the categories
+    #     super().save_model(request, obj, form, change)
 
 
 
