@@ -195,6 +195,8 @@ class DepartmentInfoInline(NestedTabularInline):
 
 class SchoolSiteMapNameInline(NestedTabularInline):
     model = SchoolSiteMapName
+    fk_name = 'school_info'
+
 #     extra=1
     def get_extra(self, request, obj=None, **kwargs):
         # if the parent object already exists, don't show any extra rows
@@ -210,13 +212,22 @@ class DeanBasicInLine(admin.TabularInline):
     model = DeanBasic
     extra = 1
 
-class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
+class SchoolInfoForm(forms.ModelForm):
     class Meta:
         model = SchoolInfo
         fields = '__all__'
         widgets = {
-          'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
-             }
+            'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+        }
+      
+
+class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
+    # class Meta:
+    #     model = SchoolInfo
+    #     fields = '__all__'
+    #     widgets = {
+    #       'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+    #          }
     def num_deans(self, obj):
         return obj.deanbasic_set.count()
     num_deans.short_description = 'Number of Deans'
@@ -266,6 +277,7 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
         current_university_names=[uni[1] for uni in university_pilot_list]
         return queryset.filter(university__in=current_university_names)
 
+    form = SchoolInfoForm
     list_display = ('university', 'school', 'num_deans','dean_info_progress')
     search_fields = ('university', 'school', 'school_en')
 
