@@ -217,7 +217,8 @@ class SchoolInfoForm(forms.ModelForm):
         model = SchoolInfo
         fields = '__all__'
         widgets = {
-            'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+            # 'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+          'school_category':admin.widgets.CheckboxSelectMultiple(
         }
       
 
