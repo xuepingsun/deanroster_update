@@ -13,7 +13,9 @@ from django.utils.html import format_html
 
 # Register your models here.
 from .models import (XiInstitute,SchoolInfo #,SchoolCategory,
-                    ,DepartmentInfo,DeanBasic, DeanID,DeanCV,Deanedu)#,UserVisit #Post,UserInput,
+                    ,DepartmentInfo,DeanBasic,
+                    SchoolSiteMapName,
+                     DeanID,DeanCV,Deanedu)#,UserVisit #Post,UserInput,
 from .forms import DeanBasicForm
 from .reference_list import university_pilot_list
 # from .models import DeanInfo
@@ -191,6 +193,18 @@ class DepartmentInfoInline(NestedTabularInline):
         # otherwise, show one extra row
         return 1
 
+class SchoolSiteMapNameInline(NestedTabularInline):
+    model = SchoolSiteMapName
+#     extra=1
+    def get_extra(self, request, obj=None, **kwargs):
+        # if the parent object already exists, don't show any extra rows
+        if obj:
+            return 0
+        # otherwise, show one extra row
+        return 1
+
+
+
 
 class DeanBasicInLine(admin.TabularInline):
     model = DeanBasic
@@ -255,7 +269,7 @@ class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     list_display = ('university', 'school', 'num_deans','dean_info_progress')
     search_fields = ('university', 'school', 'school_en')
 
-    inlines = [DepartmentInfoInline] #,DeanBasicInLine
+    inlines = [DepartmentInfoInline,SchoolSiteMapNameInline] #,DeanBasicInLine
 
     # list_display = ['university','school', 'num_deans']#'university_school',
     def save_model(self, request, obj, form, change):
