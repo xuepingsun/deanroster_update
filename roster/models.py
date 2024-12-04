@@ -68,6 +68,7 @@ class SchoolInfo(models.Model):
 
     school = models.CharField(max_length=100,default='na',verbose_name="学院名称")
     school_en= models.CharField(max_length=150,default='na',verbose_name="学院英文名")
+    sitemap_name= models.CharField(max_length=150,default='na',verbose_name="学院网站sitemap名称(id)")
     school_st_year=  models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
