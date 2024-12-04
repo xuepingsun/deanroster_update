@@ -68,7 +68,7 @@ class SchoolInfo(models.Model):
 
     school = models.CharField(max_length=100,default='na',verbose_name="学院名称")
     school_en= models.CharField(max_length=150,default='na',verbose_name="学院英文名")
-    sitemap_name= models.CharField(max_length=150,default='na',verbose_name="学院网站sitemap名称(id)")
+    # sitemap_name= models.CharField(max_length=150,default='na',verbose_name="学院网站sitemap名称(id)")
     school_st_year=  models.CharField(max_length=4,
         validators=[
             MinLengthValidator(4),
@@ -128,7 +128,17 @@ class DepartmentInfo(models.Model):
     class Meta:
         app_label = 'roster'
 
+class SchoolSiteMapName(models.Model):
+    school_info = models.ForeignKey(SchoolInfo, on_delete=models.DO_NOTHING)
 
+    #---------------------citemap info ----------------
+    sitemap_name= models.CharField(max_length=150,default='na',verbose_name="学院网站sitemap名称(id)")
+    #     department_name_en=models.CharField(max_length=30,verbose_name="系/所名称英文")
+
+
+    class Meta:
+        app_label = 'roster'
+        
 
 class DeanBasic(models.Model):
     """
