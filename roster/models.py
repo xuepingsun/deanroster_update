@@ -94,6 +94,12 @@ class SchoolInfo(models.Model):
     school_category=MultiSelectField(max_length=50,
                     choices=school_cls_choice,verbose_name="学科大类",blank=True)
 
+    school_category2=MultiSelectField(max_length=50,
+                    choices=school_cls_choice,verbose_name="学科大类-并列1",blank=True)
+
+    school_category3=MultiSelectField(max_length=50,
+                    choices=school_cls_choice,verbose_name="学科大类-并列2",blank=True)
+
     # school_category = models.ManyToManyField(
     #     SchoolCategory,
     #     verbose_name="学科大类",
