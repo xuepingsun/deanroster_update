@@ -4,6 +4,7 @@ from django.db import models
 from django.forms import TextInput, Textarea,CheckboxSelectMultiple
 from django.contrib.contenttypes.models import ContentType
 from django.forms import  NumberInput, URLInput, Select, DateInput
+from multiselectfield import MultiSelectFormField
 
 from django import forms
 
@@ -213,15 +214,20 @@ class DeanBasicInLine(admin.TabularInline):
     extra = 1
 
 class SchoolInfoForm(forms.ModelForm):
+#     class Meta:
+#         model = SchoolInfo
+#         fields = '__all__'
+#         widgets = {
+#             # 'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
+#           'school_category':CheckboxSelectMultiple #admin.widgets.CheckboxSelectMultiple(
+#         }
+      
+    school_category = MultiSelectFormField(choices=SchoolInfo.school_cls_choice)
+
     class Meta:
         model = SchoolInfo
         fields = '__all__'
-        widgets = {
-            # 'school_category': admin.widgets.FilteredSelectMultiple('学科大类', is_stacked=False),
-          'school_category':CheckboxSelectMultiple #admin.widgets.CheckboxSelectMultiple(
-        }
       
-
 class SchoolInfoAdmin(NestedModelAdmin,admin.ModelAdmin):
     # class Meta:
     #     model = SchoolInfo
