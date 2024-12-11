@@ -91,14 +91,14 @@ class SchoolInfo(models.Model):
                     ('law','法学')
                     ]
 #     school_category = models.CharField(max_length=50,choices=school_cls_choice,default='na',verbose_name="学科大类")
-    school_category=MultiSelectField(max_length=50,
+    school_category=MultiSelectField(max_length=200,
                     choices=school_cls_choice,verbose_name="学科大类",blank=True)
 
-    school_category2=MultiSelectField(max_length=50,
-                    choices=school_cls_choice,verbose_name="学科大类-并列1",blank=True)
+    # school_category2=MultiSelectField(max_length=50,
+    #                 choices=school_cls_choice,verbose_name="学科大类-并列1",blank=True)
 
-    school_category3=MultiSelectField(max_length=50,
-                    choices=school_cls_choice,verbose_name="学科大类-并列2",blank=True)
+    # school_category3=MultiSelectField(max_length=50,
+    #                 choices=school_cls_choice,verbose_name="学科大类-并列2",blank=True)
 
     # school_category = models.ManyToManyField(
     #     SchoolCategory,
